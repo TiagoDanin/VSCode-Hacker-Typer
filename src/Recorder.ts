@@ -1,5 +1,3 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as buffers from "./buffers";
 import Storage from "./storage";
@@ -16,7 +14,7 @@ export default class Recorder {
       // reset global buffer
       buffers.clear();
 
-      vscode.window.showInformationMessage("Hacker Typer is now recording!");
+      vscode.window.showInformationMessage("Hacker aaaa Typer is now recording!");
       const recorder = new Recorder(Storage.getInstance(context));
       context.subscriptions.push(recorder);
     };
@@ -40,20 +38,20 @@ export default class Recorder {
     );
 
     const insertNamedStop = vscode.commands.registerCommand(
-      "jevakallio.vscode-hacker-typer.insertNamedStop",
+      "tiagodanin.vscode-hacker-typer.insertNamedStop",
       this.insertNamedStop,
       this
     );
 
     const insertStop = vscode.commands.registerCommand(
-      "jevakallio.vscode-hacker-typer.insertStop",
+      "tiagodanin.vscode-hacker-typer.insertStop",
       () => {
         this.insertStop(null);
       }
     );
 
     const save = vscode.commands.registerCommand(
-      "jevakallio.vscode-hacker-typer.saveMacro",
+      "tiagodanin.vscode-hacker-typer.saveMacro",
       () => {
         this.saveRecording(save);
       }
@@ -102,8 +100,6 @@ export default class Recorder {
       stop: {
         name: name || null
       },
-      changes: null,
-      selections: null,
       position: this._buffers++
     });
   }

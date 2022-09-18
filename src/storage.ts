@@ -11,7 +11,7 @@ type Metadata = {
   description: string;
 };
 
-type Macro = Metadata & {
+export type Macro = Metadata & {
   buffers: Buffer[];
 };
 

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import * as buffers from "./buffers";
-import Storage from "./storage";
+import Storage, { Macro } from "./storage";
 import * as Queue from "promise-queue";
 
 const stopPointBreakChar = `\n`; // ENTER
@@ -20,24 +20,28 @@ export function start(context: vscode.ExtensionContext) {
     }
 
     const macro = storage.getByName(picked);
-    buffers.inject(macro.buffers);
-
-    currentBuffer = buffers.get(0);
-    if (!currentBuffer) {
-      vscode.window.showErrorMessage("No active recording");
-      return;
-    }
-
-    const textEditor = vscode.window.activeTextEditor;
-    if (buffers.isStartingPoint(currentBuffer)) {
-      setStartingPoint(currentBuffer, textEditor);
-    }
-
-    isEnabled = true;
-    vscode.window.showInformationMessage(
-      `Now playing ${buffers.count()} buffers from ${macro.name}!`
-    );
+    onSelectMacro(macro)
   });
+}
+
+export function onSelectMacro(macro: Macro) {
+  buffers.inject(macro.buffers);
+
+  currentBuffer = buffers.get(0);
+  if (!currentBuffer) {
+    vscode.window.showErrorMessage("No active recording");
+    return;
+  }
+
+  const textEditor = vscode.window.activeTextEditor;
+  if (buffers.isStartingPoint(currentBuffer)) {
+    setStartingPoint(currentBuffer, textEditor);
+  }
+
+  isEnabled = true;
+  vscode.window.showInformationMessage(
+    `Now playing ${buffers.count()} buffers from ${macro.name}!`
+  );
 }
 
 async function setStartingPoint(
