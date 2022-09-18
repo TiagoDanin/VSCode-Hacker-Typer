@@ -1,7 +1,7 @@
 {
   "name": "vscode-hacker-typer",
-  "displayName": "VSCode Test Hack",
-  "description": "VSCode Test Hack",
+  "displayName": "VSCode Hacker Typer 2",
+  "description": "In progress",
   "version": "0.1.1",
   "license": "MIT",
   "engines": {
@@ -16,74 +16,83 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:tiagodanin.vscode-hacker-typer.recordMacro",
-    "onCommand:tiagodanin.vscode-hacker-typer.playMacro",
-    "onCommand:tiagodanin.vscode-hacker-typer.deleteMacro"
+    "onCommand:com.tiagodanin.vscode-hacker-typer.recordMacro",
+    "onCommand:com.tiagodanin.vscode-hacker-typer.playMacro",
+    "onCommand:com.tiagodanin.vscode-hacker-typer.deleteMacro"
   ],
   "main": "./out/extension",
   "contributes": {
     "keybindings": [
       {
-        "command": "tiagodanin.vscode-hacker-typer.backspace",
+        "command": "com.tiagodanin.vscode-hacker-typer.backspace",
         "when": "editorTextFocus",
         "key": "cmd+shift+backspace"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.recordMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.recordMacro",
         "when": "editorTextFocus",
         "key": "cmd+shift+t r"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.playMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.playMacro",
         "key": "cmd+shift+t p"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.saveMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.saveMacro",
         "key": "cmd+shift+t s"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.insertStop",
+        "command": "com.tiagodanin.vscode-hacker-typer.insertStop",
         "key": "cmd+shift+t i"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.insertNamedStop",
+        "command": "com.tiagodanin.vscode-hacker-typer.insertNamedStop",
         "key": "cmd+shift+t n"
+      },
+      {
+        "command": "com.tiagodanin.vscode-hacker-typer.exitMacro",
+        "key": "cmd+shift+t e"
       }
     ],
     "commands": [
       {
-        "command": "tiagodanin.vscode-hacker-typer.recordMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.recordMacro",
         "title": "Record Macro",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.playMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.playMacro",
         "title": "Play Macro",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.saveMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.saveMacro",
         "title": "Save Macro",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.removeMacro",
+        "command": "com.tiagodanin.vscode-hacker-typer.removeMacro",
         "title": "Remove Macro",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.insertStop",
+        "command": "com.tiagodanin.vscode-hacker-typer.insertStop",
         "title": "Insert Soft Stop Point",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.insertNamedStop",
+        "command": "com.tiagodanin.vscode-hacker-typer.insertNamedStop",
         "title": "Insert Named Stop Point",
         "category": "HackerTyper"
       },
       {
-        "command": "tiagodanin.vscode-hacker-typer.backspace",
+        "command": "com.tiagodanin.vscode-hacker-typer.backspace",
         "title": "Erase Previous Frame",
+        "category": "HackerTyper"
+      },
+      {
+        "command": "com.tiagodanin.vscode-hacker-typer.exitMacro",
+        "title": "Exit Macro",
         "category": "HackerTyper"
       }
     ]
@@ -93,7 +102,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    "test": "yarn run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",

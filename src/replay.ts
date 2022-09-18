@@ -115,6 +115,13 @@ export function onBackspace() {
   vscode.commands.executeCommand("deleteLeft");
 }
 
+export function stopMacro() {
+  isEnabled = false;
+  vscode.window.showInformationMessage(
+    `Macro is stopped`
+  );
+}
+
 function updateSelections(
   selections: vscode.Selection[],
   editor: vscode.TextEditor
@@ -194,3 +201,4 @@ function applyContentChange(
     edit.replace(change.range, change.text);
   }
 }
+

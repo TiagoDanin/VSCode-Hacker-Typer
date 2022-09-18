@@ -37,20 +37,20 @@ export default class Recorder {
     );
 
     const insertNamedStop = vscode.commands.registerCommand(
-      "tiagodanin.vscode-hacker-typer.insertNamedStop",
+      "com.tiagodanin.vscode-hacker-typer.insertNamedStop",
       this.insertNamedStop,
       this
     );
 
     const insertStop = vscode.commands.registerCommand(
-      "tiagodanin.vscode-hacker-typer.insertStop",
+      "com.tiagodanin.vscode-hacker-typer.insertStop",
       () => {
         this.insertStop(null);
       }
     );
 
     const save = vscode.commands.registerCommand(
-      "tiagodanin.vscode-hacker-typer.saveMacro",
+      "com.tiagodanin.vscode-hacker-typer.saveMacro",
       () => {
         this.saveRecording(save);
       }
@@ -120,6 +120,7 @@ export default class Recorder {
               vscode.window.showInformationMessage(
                 `Saved ${macro.buffers.length} buffers under "${macro.name}".`
               );
+
               this.dispose();
               command.dispose();
             });
