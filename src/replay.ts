@@ -95,6 +95,7 @@ export function onType({ text }: { text: string }) {
       () =>
         new Promise((resolve, reject) => {
           try {
+            // @ts-ignore
             advanceBuffer(resolve, text);
           } catch (e) {
             console.log(e);

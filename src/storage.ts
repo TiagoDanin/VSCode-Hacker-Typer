@@ -1,7 +1,10 @@
 import * as vscode from "vscode";
 import * as Cache from "vscode-cache";
-import { Buffer } from "./buffers";
+import * as buffers from "./buffers";
 import { SerializedBuffer, rehydrateBuffer } from "./rehydrate";
+
+import * as fs from 'fs';
+import * as path from 'path';
 
 const LISTINGS = "HackerTyper:Listings";
 const MACROS = "HackerTyper:Macros";
@@ -12,7 +15,7 @@ type Metadata = {
 };
 
 export type Macro = Metadata & {
-  buffers: Buffer[];
+  buffers: buffers.Buffer[];
 };
 
 export default class Storage {
@@ -63,4 +66,33 @@ export default class Storage {
     this._listings.forget(name);
     this._macros.forget(name);
   }
+
+  public export(name: string, path: vscode.Uri, callback: (error: NodeJS.ErrnoException | null | undefined) => void): void {
+    const content = JSON.stringify(this._macros.get(name));
+
+    return fs.writeFile(path.fsPath, content, callback);
+  }
+
+  public import(uri: vscode.Uri, callback: (error: NodeJS.ErrnoException | null | undefined) => void): void {
+    const listings = this._listings;
+    const macros = this._macros;
+    fs.readFile(uri.fsPath, (error: NodeJS.ErrnoException | null | undefined, data: Buffer): void => {
+
+      if (error) {
+        callback(error);
+      }
+
+      const json = JSON.parse(data.toString());
+      const name = path.basename(uri.fsPath, '.json');
+      const operations = [
+        listings.put(name, { name, description: `Imported macro from ${uri.fsPath}` }),
+        macros.put(name, json)
+      ];
+
+      Promise.all(operations)
+        .then(() => callback(undefined))
+        .catch(callback);
+    });
+  }
 }
+

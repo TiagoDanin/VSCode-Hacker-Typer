@@ -2,7 +2,7 @@
   "name": "vscode-hacker-typer",
   "displayName": "VSCode Hacker Typer 2",
   "description": "In progress",
-  "version": "0.1.1",
+  "version": "2.0.0",
   "license": "MIT",
   "engines": {
     "vscode": "^1.27.0"
@@ -18,7 +18,9 @@
   "activationEvents": [
     "onCommand:com.tiagodanin.vscode-hacker-typer.recordMacro",
     "onCommand:com.tiagodanin.vscode-hacker-typer.playMacro",
-    "onCommand:com.tiagodanin.vscode-hacker-typer.deleteMacro"
+    "onCommand:com.tiagodanin.vscode-hacker-typer.deleteMacro",
+    "onCommand:com.tiagodanin.vscode-hacker-typer.exportMacro",
+    "onCommand:com.tiagodanin.vscode-hacker-typer.importMacro"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -93,6 +95,16 @@
       {
         "command": "com.tiagodanin.vscode-hacker-typer.exitMacro",
         "title": "Exit Macro",
+        "category": "HackerTyper"
+      },
+      {
+        "command": "com.tiagodanin.vscode-hacker-typer.exportMacro",
+        "title": "Export Macro",
+        "category": "HackerTyper"
+      },
+      {
+        "command": "com.tiagodanin.vscode-hacker-typer.importMacro",
+        "title": "Import Macro",
         "category": "HackerTyper"
       }
     ]
