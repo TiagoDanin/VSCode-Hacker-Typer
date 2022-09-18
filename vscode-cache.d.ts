@@ -1,5 +1,3 @@
-// partial and incomplete  ¯\_(ツ)_/¯
-
 declare module "vscode-cache" {
   import { ExtensionContext } from "vscode";
 

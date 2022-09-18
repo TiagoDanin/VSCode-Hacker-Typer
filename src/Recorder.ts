@@ -11,7 +11,6 @@ export default class Recorder {
 
   public static register(context: vscode.ExtensionContext) {
     return () => {
-      // reset global buffer
       buffers.clear();
 
       vscode.window.showInformationMessage("Hacker aaaa Typer is now recording!");
@@ -57,7 +56,6 @@ export default class Recorder {
       }
     );
 
-    // Why?
     this._textEditor = vscode.window.activeTextEditor;
     this._disposable = vscode.Disposable.from(
       ...subscriptions,
@@ -130,19 +128,12 @@ export default class Recorder {
   }
 
   private onDidChangeTextDocument(e: vscode.TextDocumentChangeEvent) {
-    // @TODO: Gets called while playing -- need to stop recording once over
-
-    // store changes, selection change will commit
     this._currentChanges = e.contentChanges;
   }
 
   private onDidChangeTextEditorSelection(
     e: vscode.TextEditorSelectionChangeEvent
   ) {
-    // @TODO: Gets called while playing -- need to stop recording once over
-
-    // Only allow recording to one active editor at a time
-    // Breaks when you leave but that's fine for now.
     if (e.textEditor !== this._textEditor) {
       return;
     }

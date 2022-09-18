@@ -3,7 +3,7 @@ import * as buffers from "./buffers";
 import Storage, { Macro } from "./storage";
 import * as Queue from "promise-queue";
 
-const stopPointBreakChar = `\n`; // ENTER
+const stopPointBreakChar = `\n`;
 const replayConcurrency = 1;
 const replayQueueMaxSize = Number.MAX_SAFE_INTEGER;
 const replayQueue = new Queue(replayConcurrency, replayQueueMaxSize);
@@ -49,7 +49,6 @@ async function setStartingPoint(
   textEditor: vscode.TextEditor | undefined
 ) {
   let editor = textEditor;
-  // if no open text editor, open one
   if (!editor) {
     vscode.window.showInformationMessage("opening new window");
     const document = await vscode.workspace.openTextDocument({
@@ -61,7 +60,6 @@ async function setStartingPoint(
   } else {
     const existingEditor = editor;
     await existingEditor.edit(edit => {
-      // update initial file content
       const l = existingEditor.document.lineCount;
       const range = new vscode.Range(
         new vscode.Position(0, 0),
@@ -81,16 +79,8 @@ async function setStartingPoint(
 
   if (editor) {
     updateSelections(startingPoint.selections, editor);
-
-    // language should always be defined, guard statement here
-    // to support old recorded frames before language bit was added
-    if (startingPoint.language) {
-      // @TODO set editor language once the API becomes available:
-      // https://github.com/Microsoft/vscode/issues/1800
-    }
   }
 
-  // move to next frame
   currentBuffer = buffers.get(startingPoint.position + 1);
 }
 
@@ -118,12 +108,10 @@ export function onType({ text }: { text: string }) {
 }
 
 export function onBackspace() {
-  // move buffer one step backwards
   if (isEnabled && currentBuffer && currentBuffer.position > 0) {
     currentBuffer = buffers.get(currentBuffer.position - 1);
   }
 
-  // actually execute backspace action
   vscode.commands.executeCommand("deleteLeft");
 }
 
@@ -133,7 +121,6 @@ function updateSelections(
 ) {
   editor.selections = selections;
 
-  // move scroll focus if needed
   const { start, end } = editor.selections[0];
   editor.revealRange(
     new vscode.Range(start, end),
@@ -172,7 +159,6 @@ function advanceBuffer(done: () => void, userInput: string) {
 
     currentBuffer = buffers.get(buffer.position + 1);
 
-    // Ran out of buffers? Disable type capture.
     if (!currentBuffer) {
       disable();
     }
